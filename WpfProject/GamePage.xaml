@@ -8,7 +8,9 @@
 	Title="GamePage">
 
     <Grid x:Name="LayoutRoot">
+        <!--
         <Canvas x:Name="GameCanvas">
         </Canvas>
+        -->
     </Grid>
 </Page>

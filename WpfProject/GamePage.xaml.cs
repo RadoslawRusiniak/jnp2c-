@@ -23,25 +23,34 @@ namespace WpfProject
     /// </summary>
     public partial class GamePage : Page
     {
+        //GameBoard gameBoard = new GameBoard();
         enum MOVINGDIRECTION { LEFT, RIGHT, DOWN, UP, NONE };
         private Point startingPoint = new Point(30, 30);
         private Point currentPosition;
         private MOVINGDIRECTION direction = MOVINGDIRECTION.NONE;
-        private int shipNr = 12345;
+        //private int shipNr = 12345;
+        private GameBoard gameBoard;
+        private Player player;
 
         public GamePage()
         {
             InitializeComponent();
+            player = new Player();
+            gameBoard = new GameBoard(LayoutRoot);
+            gameBoard.initGameBoard(player.ship.shipShape);
+            /*
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += new EventHandler(timer_Tick);
 
             /* Here user can change the speed of the snake.
              * Possible speeds are FAST, MODERATE, SLOW and DAMNSLOW */
+            /*
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Start();
 
             Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
             paintShip(startingPoint);
+            */
             currentPosition = startingPoint;
         }
 
@@ -49,6 +58,7 @@ namespace WpfProject
         {
             /* This method is used to paint a frame of the snake´s body
              * each time it is called. */
+            /*
             if (GameCanvas.Children.Count >= shipNr)
             {
                 GameCanvas.Children.RemoveAt(shipNr);
@@ -63,6 +73,7 @@ namespace WpfProject
             Canvas.SetLeft(newEllipse, currentposition.X);
 
             shipNr = GameCanvas.Children.Add(newEllipse);
+             */
         }
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
@@ -123,7 +134,8 @@ namespace WpfProject
         private void GameOver()
         {
             MessageBox.Show("You Lose! Game Over", "",MessageBoxButton.OK, MessageBoxImage.Hand);
-            this.NavigationService.GoBack();
+            ProjectHome home = new ProjectHome();
+            this.NavigationService.Navigate(home);
         }
     }
 }
