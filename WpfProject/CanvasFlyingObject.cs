@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    class Ship
+    class CanvasFlyingObject
     {
-        public Ellipse shipShape {get; set;}
-        //private int armour;
+        public Shape shape { get; set; }
+        public Point position { get; set; }
 
-        public Ship()
+        public CanvasFlyingObject(Point p)
         {
+            position = p;
         }
     }
 }
