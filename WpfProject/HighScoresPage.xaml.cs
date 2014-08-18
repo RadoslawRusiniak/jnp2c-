@@ -20,9 +20,15 @@ namespace WpfProject
     /// </summary>
     public partial class HighScoresPage : Page
     {
+        private const string HIGHSCORES_FILE_NAME = "HighScores.txt";
+
         public HighScoresPage()
         {
             InitializeComponent();
+            if (!File.Exists(FILE_NAME))
+            {
+                File.Create(FILE_NAME);
+            }
         }
     }
 }

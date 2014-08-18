@@ -31,6 +31,7 @@ namespace WpfProject
         public GamePage()
         {
             InitializeComponent();
+            this.ShowsNavigationUI = false;
             rand = new Random();
             player = new Player();
             gameBoard = new GameBoard(LayoutRoot, startingPointHeroShip);
@@ -51,7 +52,6 @@ namespace WpfProject
 
         private void timerTick(object sender, EventArgs e)
         {
-            gameBoard.moveShip();
             if (rand.Next(0, 500) < 10)
             {
                 gameBoard.generateEnemy(rand.Next(0, 300));
@@ -70,7 +70,9 @@ namespace WpfProject
 
         private void GameOver()
         {
-            MessageBox.Show("Crashed with bounds!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
+            MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
+            //foreach (Window w in 
+            //this.NavigationService.Navigate(highScores);
         }
     }
 }

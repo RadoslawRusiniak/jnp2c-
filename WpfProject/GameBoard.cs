@@ -11,13 +11,10 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    enum MOVINGDIRECTION { LEFT, RIGHT, DOWN, UP, NONE };
-
     class GameBoard
     {
         private Canvas canvas;
         private CanvasFlyingObject heroShip;
-        private MOVINGDIRECTION heroShipDirection = MOVINGDIRECTION.NONE;
         private List<CanvasFlyingObject> heroBullets;
         private List<CanvasFlyingObject> enemies;
 
@@ -26,7 +23,7 @@ namespace WpfProject
             canvas = new Canvas();
             grid.Children.Add(canvas);
 
-            heroShip = new CanvasFlyingObject(startingPoint);
+            heroShip = new CanvasFlyingObject(startingPoint, Brushes.Aqua, 20, 20);
             updateHeroShipPainting();
             heroBullets = new List<CanvasFlyingObject>();
             enemies = new List<CanvasFlyingObject>();
@@ -37,16 +34,20 @@ namespace WpfProject
             switch (e.Key)
             {
                 case Key.Left:
-                    heroShipDirection = MOVINGDIRECTION.LEFT;
+                    heroShip.position = new Point(heroShip.position.X - 5, heroShip.position.Y);
+                    updateHeroShipPainting();
                     break;
                 case Key.Right:
-                    heroShipDirection = MOVINGDIRECTION.RIGHT;
+                    heroShip.position = new Point(heroShip.position.X + 5, heroShip.position.Y);
+                    updateHeroShipPainting();
                     break;
                 case Key.Up:
-                    heroShipDirection = MOVINGDIRECTION.UP;
+                    heroShip.position = new Point(heroShip.position.X, heroShip.position.Y - 5);
+                    updateHeroShipPainting();
                     break;
                 case Key.Down:
-                    heroShipDirection = MOVINGDIRECTION.DOWN;
+                    heroShip.position = new Point(heroShip.position.X, heroShip.position.Y + 5);
+                    updateHeroShipPainting();
                     break;
                 case Key.Space:
                     shootBullet();
@@ -57,59 +58,24 @@ namespace WpfProject
         public void shootBullet()
         {
             int positionX = (int)heroShip.position.X + (20 - 10) / 2;
-            CanvasFlyingObject bullet = new CanvasFlyingObject(new Point(positionX, heroShip.position.Y - 5));
-            Ellipse ell = new Ellipse();
-            ell.Fill = Brushes.Yellow;
-            ell.Width = 10;
-            ell.Height = 10;
-            bullet.shape = ell;
+            CanvasFlyingObject bullet = new CanvasFlyingObject(new Point(positionX, heroShip.position.Y - 5), Brushes.Yellow, 10, 10);
 
             Canvas.SetTop(bullet.shape, bullet.position.Y);
             Canvas.SetLeft(bullet.shape, bullet.position.X);
 
             canvas.Children.Add(bullet.shape);
-
             heroBullets.Add(bullet);
         }
 
         public void generateEnemy(int startingPositionX)
         {
-            CanvasFlyingObject enemy = new CanvasFlyingObject(new Point(startingPositionX, 0));
-            Ellipse ell = new Ellipse();
-            ell.Fill = Brushes.Red;
-            ell.Width = 20;
-            ell.Height = 20;
-            enemy.shape = ell;
+            CanvasFlyingObject enemy = new CanvasFlyingObject(new Point(startingPositionX, 0), Brushes.Red, 20, 20);
 
             Canvas.SetTop(enemy.shape, enemy.position.Y);
             Canvas.SetLeft(enemy.shape, enemy.position.X);
 
             canvas.Children.Add(enemy.shape);
             enemies.Add(enemy);
-        }
-
-        public void moveShip()
-        {
-            switch (heroShipDirection)
-            {
-                case MOVINGDIRECTION.LEFT:
-                    heroShip.position = new Point(heroShip.position.X - 5, heroShip.position.Y);
-                    updateHeroShipPainting();
-                    break;
-                case MOVINGDIRECTION.RIGHT:
-                    heroShip.position = new Point(heroShip.position.X + 5, heroShip.position.Y);
-                    updateHeroShipPainting();
-                    break;
-                case MOVINGDIRECTION.UP:
-                    heroShip.position = new Point(heroShip.position.X, heroShip.position.Y - 5);
-                    updateHeroShipPainting();
-                    break;
-                case MOVINGDIRECTION.DOWN:
-                    heroShip.position = new Point(heroShip.position.X, heroShip.position.Y + 5);
-                    updateHeroShipPainting();
-                    break;
-            }
-            heroShipDirection = MOVINGDIRECTION.NONE;
         }
 
         public bool checkCrashes()
@@ -119,10 +85,10 @@ namespace WpfProject
             {
                 return true;
             }
+
             foreach (CanvasFlyingObject enemy in enemies)
             {
-                if (Math.Pow(enemy.position.X - heroShip.position.X, 2) 
-                    + Math.Pow(enemy.position.Y - heroShip.position.Y, 2) <= heroShip.shape.Width * enemy.shape.Width)
+                if (CFOsCollide(heroShip, enemy))
                 {
                     return true;
                 }
@@ -138,8 +104,7 @@ namespace WpfProject
             {
                 foreach (CanvasFlyingObject enemy in enemies)
                 {
-                    if (Math.Pow(bullet.position.X - enemy.position.X, 2)
-                        + Math.Pow(bullet.position.Y - enemy.position.Y, 2) <= bullet.shape.Width * enemy.shape.Width)
+                    if (CFOsCollide(bullet, enemy))
                     {
                         bulletsToDel.Add(bullet);
                         enemiesToDel.Add(enemy);
@@ -159,21 +124,18 @@ namespace WpfProject
             return enemiesToDel.Count;
         }
 
+        private bool CFOsCollide(CanvasFlyingObject cfo1, CanvasFlyingObject cfo2)
+        {
+            if (Math.Pow(cfo1.position.X - cfo2.position.X, 2)
+               + Math.Pow(cfo1.position.Y - cfo2.position.Y, 2) <= Math.Pow((cfo1.shape.Width + cfo2.shape.Width) / 2, 2))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void updateHeroShipPainting() {
-
-            if (heroShip.shape == null)
-            {
-                Ellipse newEllipse = new Ellipse();
-                newEllipse.Fill = Brushes.Aqua;
-                newEllipse.Width = 20;
-                newEllipse.Height = 20;
-
-                heroShip.shape = newEllipse;
-            }
-            else
-            {
-                canvas.Children.Remove(heroShip.shape);
-            }
+            canvas.Children.Remove(heroShip.shape);
 
             Canvas.SetTop(heroShip.shape, heroShip.position.Y);
             Canvas.SetLeft(heroShip.shape, heroShip.position.X);
@@ -181,7 +143,7 @@ namespace WpfProject
             canvas.Children.Add(heroShip.shape);
         }
 
-        public void updateEnemiesPainting()
+        private void updateEnemiesPainting()
         {
             foreach (CanvasFlyingObject enemy in enemies)
             {
@@ -195,12 +157,12 @@ namespace WpfProject
             }
         }
 
-        public void updateBulletsPainting()
+        private void updateBulletsPainting()
         {
             foreach (CanvasFlyingObject bullet in heroBullets)
             {
                 canvas.Children.Remove(bullet.shape);
-                bullet.position = new Point(bullet.position.X, bullet.position.Y - 1);
+                bullet.position = new Point(bullet.position.X, bullet.position.Y - 3);
                 if (bullet.position.Y > 0)
                 {
                     Canvas.SetTop(bullet.shape, bullet.position.Y);
