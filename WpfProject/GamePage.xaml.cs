@@ -70,9 +70,11 @@ namespace WpfProject
         {
             MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             //foreach (Window w in 
+            //ProjectHome projectHome = new ProjectHome();
             HighScoresPage highScores = new HighScoresPage();
-            highScores.updateResults("TODO Nick", player.score);
-            this.NavigationService.Navigate(highScores);
+            highScores.updateResults("TODO Nick", player.score); 
+            NavigationService ns = NavigationService.GetNavigationService(this);
+            ns.Navigate(highScores);
         }
     }
 }

@@ -20,9 +20,6 @@ namespace WpfProject
     /// </summary>
     public partial class ProjectHome : Page
     {
-        GamePage gamePage;
-        HighScoresPage highScoresPage;
-
         public ProjectHome()
         {
             InitializeComponent();
@@ -30,13 +27,13 @@ namespace WpfProject
 
         private void PlayClick(object sender, RoutedEventArgs e)
         {
-            gamePage = new GamePage();
+            GamePage gamePage = new GamePage();
             this.NavigationService.Navigate(gamePage);
         }
 
         private void HighScoresClick(object sender, RoutedEventArgs e)
         {
-            highScoresPage = new HighScoresPage();
+            HighScoresPage highScoresPage = new HighScoresPage();
             this.NavigationService.Navigate(highScoresPage);
         }
     }

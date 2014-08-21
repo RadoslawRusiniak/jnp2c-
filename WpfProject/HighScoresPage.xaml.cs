@@ -38,8 +38,7 @@ namespace WpfProject
         public HighScoresPage()
         {
             InitializeComponent();
-            //MessageBox.Show(Directory.GetCurrentDirectory());
-            manageHighScoresFile();
+            initHighScoresOnStart();
             renderScores();
         }
 
@@ -63,10 +62,71 @@ namespace WpfProject
                 bestResults[position_to_put].playerNick = nick;
                 bestResults[position_to_put].score = score;
 
-                writeDataFromReults();
+                writeDataToFile();
                 renderScores();
             }
 
+        }
+
+        private void initHighScoresOnStart()
+        {
+            if (File.Exists(HIGHSCORES_FILE_NAME))
+            {
+                loadDataFromFile();
+            }
+            else
+            {
+                FileStream fs = File.Create(HIGHSCORES_FILE_NAME);
+                fs.Close();
+                initBestResults();
+                writeDataToFile();
+            }
+        }
+
+        private void initBestResults()
+        {
+            for (int i = 1, j = 10 * SCORES_TO_SHOW; i <= SCORES_TO_SHOW; ++i, j -= 10)
+            {
+                bestResults[i].playerNick = "User" + i;
+                bestResults[i].score = j;
+            }
+        }
+
+        private void writeDataToFile()
+        {
+            using (StreamWriter outfile = new StreamWriter(HIGHSCORES_FILE_NAME))
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0, j = 10 * SCORES_TO_SHOW; i < SCORES_TO_SHOW; ++i, j -= 10)
+                {
+                    sb.AppendLine(String.Format("{0}{1}{2}", bestResults[i].playerNick, SPECIAL_CHAR, bestResults[i].score));
+                }
+                outfile.Write(sb.ToString());
+            }
+        }
+
+        private void loadDataFromFile()
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(HIGHSCORES_FILE_NAME))
+                {
+                    String line;
+                    int i = 0;
+                    while (i < SCORES_TO_SHOW && (line = sr.ReadLine()) != null)
+                    {
+                        bestResults[i].playerNick = line.Split(SPECIAL_CHAR)[0];
+                        bestResults[i].score = Convert.ToInt32(line.Split(SPECIAL_CHAR)[1]);
+                        ++i;
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                initBestResults();
+            }
         }
 
         private void renderScores()
@@ -95,63 +155,6 @@ namespace WpfProject
 
                 this.ScoresGrid.Children.Add(nameLabel);
                 this.ScoresGrid.Children.Add(dataLabel);
-            }
-        }
-
-        private void manageHighScoresFile()
-        {
-            if (!File.Exists(HIGHSCORES_FILE_NAME))
-            {
-                FileStream fs = File.Create(HIGHSCORES_FILE_NAME);
-                fs.Close();
-                writeDefaultDataToFile();
-            }
-            
-            try
-            {
-                using (StreamReader sr = new StreamReader(HIGHSCORES_FILE_NAME))
-                {
-                    String line;
-                    int i = 0;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        bestResults[i].playerNick = line.Split(SPECIAL_CHAR)[0];
-                        bestResults[i].score = Convert.ToInt32(line.Split(SPECIAL_CHAR)[1]);
-                        ++i;
-                    }
-                    
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-                //writeDefaultDataToFile();
-            }
-        }
-
-        private void writeDefaultDataToFile()
-        {
-            using (StreamWriter outfile = new StreamWriter(HIGHSCORES_FILE_NAME))
-            {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 1, j = 10*SCORES_TO_SHOW; i <= SCORES_TO_SHOW; ++i, j -= 10)
-                {
-                    sb.AppendLine(String.Format("User{0}{1}{2}", i, SPECIAL_CHAR, j));
-                }
-                outfile.Write(sb.ToString());
-            }
-        }
-
-        private void writeDataFromReults()
-        {
-            using (StreamWriter outfile = new StreamWriter(HIGHSCORES_FILE_NAME))
-            {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0, j = 10 * SCORES_TO_SHOW; i < SCORES_TO_SHOW; ++i, j -= 10)
-                {
-                    sb.AppendLine(String.Format("{0}{1}{2}", bestResults[i].playerNick, SPECIAL_CHAR, bestResults[i].score));
-                }
-                outfile.Write(sb.ToString());
             }
         }
     }
