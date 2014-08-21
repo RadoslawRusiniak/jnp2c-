@@ -10,7 +10,8 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    class Ship
+    [Serializable()]
+    public class Ship
     {
         public Ellipse shipShape {get; set;}
         //private int armour;

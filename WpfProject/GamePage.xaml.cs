@@ -21,12 +21,14 @@ namespace WpfProject
     /// <summary>
     /// Interaction logic for GamePage.xaml
     /// </summary>
+    [Serializable()]
     public partial class GamePage : Page
     {
         private Random rand;
         private GameBoard gameBoard;
         private Player player;
         private Point startingPointHeroShip = new Point(150, 400);
+        private int nextSavingScore = 1;
 
         public GamePage()
         {
@@ -52,7 +54,7 @@ namespace WpfProject
 
         private void timerTick(object sender, EventArgs e)
         {
-            if (rand.Next(0, 500) < 10)
+            if (rand.Next(0, 1000) < 10)
             {
                 gameBoard.generateEnemy(rand.Next(0, 300));
             }
@@ -64,6 +66,25 @@ namespace WpfProject
             {
                 GameOver();
             }
+            else if (player.score >= nextSavingScore)
+            {
+                nextSavingScore += 100; 
+                saveGame();
+            }
+        }
+
+        private void saveGame()
+        {
+            /*
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(typeof(GamePage));
+
+            System.IO.StreamWriter file = new System.IO.StreamWriter(
+                "save.xml");
+            writer.Serialize(file, gameBoard);
+            file.Close();
+            MessageBox.Show("Game saved.");
+            */
         }
 
         private void GameOver()

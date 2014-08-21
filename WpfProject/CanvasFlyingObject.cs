@@ -9,10 +9,15 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    class CanvasFlyingObject
+    [Serializable()]
+    public class CanvasFlyingObject
     {
         public Shape shape { get; set; }
         public Point position { get; set; }
+
+        public CanvasFlyingObject()
+        {
+        }
 
         public CanvasFlyingObject(Point p)
         {
@@ -22,6 +27,11 @@ namespace WpfProject
         public CanvasFlyingObject(Point p, SolidColorBrush color, int height, int width)
         {
             position = p;
+            paintShape(color, height, width);
+        }
+
+        public void paintShape(SolidColorBrush color, int height, int width)
+        {
             shape = new Ellipse();
             shape.Fill = color;
             shape.Height = height;

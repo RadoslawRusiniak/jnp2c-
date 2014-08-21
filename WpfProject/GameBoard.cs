@@ -11,12 +11,17 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    class GameBoard
+    [Serializable()]
+    public class GameBoard
     {
-        private Canvas canvas;
+        public Canvas canvas;
         private CanvasFlyingObject heroShip;
         private List<CanvasFlyingObject> heroBullets;
         private List<CanvasFlyingObject> enemies;
+
+        public GameBoard()
+        {
+        }
 
         public GameBoard(Grid grid, Point startingPoint)
         {
