@@ -78,6 +78,12 @@ namespace WpfProject
             enemies.Add(enemy);
         }
 
+        public void moveFlyingObjects()
+        {
+            updateBulletsPainting();
+            updateEnemiesPainting();
+        }
+
         public bool checkCrashes()
         {
             if ((heroShip.position.X < 0) || (heroShip.position.X > 300) ||

@@ -56,8 +56,7 @@ namespace WpfProject
             {
                 gameBoard.generateEnemy(rand.Next(0, 300));
             }
-            gameBoard.updateEnemiesPainting();
-            gameBoard.updateBulletsPainting();
+            gameBoard.moveFlyingObjects();
             int hits = gameBoard.checkBulletsHits();
             player.score += hits;
             ScoreBoard.Content = player.score;
@@ -65,14 +64,15 @@ namespace WpfProject
             {
                 GameOver();
             }
-             
         }
 
         private void GameOver()
         {
             MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             //foreach (Window w in 
-            //this.NavigationService.Navigate(highScores);
+            HighScoresPage highScores = new HighScoresPage();
+            highScores.updateResults("TODO Nick", player.score);
+            this.NavigationService.Navigate(highScores);
         }
     }
 }
