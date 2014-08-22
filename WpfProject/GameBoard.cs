@@ -8,16 +8,18 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace WpfProject
 {
     [Serializable()]
     public class GameBoard
     {
-        public Canvas canvas;
-        private CanvasFlyingObject heroShip;
-        private List<CanvasFlyingObject> heroBullets;
-        private List<CanvasFlyingObject> enemies;
+        [XmlIgnore]
+        private Canvas canvas;
+        public CanvasFlyingObject heroShip { get; set; }
+        public List<CanvasFlyingObject> heroBullets { get; set; }
+        public List<CanvasFlyingObject> enemies { get; set; }
 
         public GameBoard()
         {
@@ -180,6 +182,17 @@ namespace WpfProject
                     canvas.Children.Add(bullet.shape);
                 }
             }
+        }
+
+        internal void save()
+        {
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(typeof(List<CanvasFlyingObject>));
+
+            System.IO.StreamWriter file = new System.IO.StreamWriter(
+                "saveObj.xml");
+            writer.Serialize(file, heroBullets);
+
         }
     }
 }

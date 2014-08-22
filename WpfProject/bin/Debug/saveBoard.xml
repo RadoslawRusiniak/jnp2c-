@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameBoard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <heroShip>
+    <position>
+      <X>150</X>
+      <Y>360</Y>
+    </position>
+  </heroShip>
+  <heroBullets />
+  <enemies>
+    <CanvasFlyingObject>
+      <position>
+        <X>223</X>
+        <Y>113</Y>
+      </position>
+    </CanvasFlyingObject>
+    <CanvasFlyingObject>
+      <position>
+        <X>287</X>
+        <Y>68</Y>
+      </position>
+    </CanvasFlyingObject>
+  </enemies>
+</GameBoard>

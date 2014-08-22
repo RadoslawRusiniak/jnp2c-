@@ -24,11 +24,13 @@ namespace WpfProject
     [Serializable()]
     public partial class GamePage : Page
     {
+        [XMLIgnore]
         private Random rand;
-        private GameBoard gameBoard;
-        private Player player;
-        private Point startingPointHeroShip = new Point(150, 400);
-        private int nextSavingScore = 1;
+        public GameBoard gameBoard { get; set; }
+        public Player player { get; set; }
+        public int nextSavingScore = 1;
+        [XMLIgnore]
+        private DispatcherTimer timer;
 
         public GamePage()
         {
@@ -36,15 +38,16 @@ namespace WpfProject
             this.ShowsNavigationUI = false;
             rand = new Random();
             player = new Player();
-            gameBoard = new GameBoard(LayoutRoot, startingPointHeroShip);
+            Point heroShipStartingPoint = new Point(150, 400);
+            gameBoard = new GameBoard(LayoutRoot, heroShipStartingPoint);
             ScoreBoard.Content = player.score;
 
-            DispatcherTimer timer = new DispatcherTimer();
+            Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+
+            timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += new EventHandler(timerTick);
             timer.Start();
-
-            Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
         }
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
@@ -75,27 +78,37 @@ namespace WpfProject
 
         private void saveGame()
         {
-            /*
             System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(GamePage));
+                new System.Xml.Serialization.XmlSerializer(typeof(GameBoard));
 
             System.IO.StreamWriter file = new System.IO.StreamWriter(
-                "save.xml");
+                "saveBoard.xml");
             writer.Serialize(file, gameBoard);
+
+            writer =
+                new System.Xml.Serialization.XmlSerializer(typeof(Player));
+            file = new System.IO.StreamWriter(
+                "savePlayer.xml");
+            writer.Serialize(file, player);
+            //gameBoard.save();
+
             file.Close();
             MessageBox.Show("Game saved.");
-            */
+            
         }
 
         private void GameOver()
         {
+            //TODO przerobic na mutex, zeby na pewno dzialalo
+            timer.Stop();
             MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
-            //foreach (Window w in 
-            //ProjectHome projectHome = new ProjectHome();
+            
             HighScoresPage highScores = new HighScoresPage();
-            highScores.updateResults("TODO Nick", player.score); 
+            highScores.updateResults("TODO Nick", player.score);
+
+            ProjectHome projectHome = new ProjectHome();
             NavigationService ns = NavigationService.GetNavigationService(this);
-            ns.Navigate(highScores);
+            ns.Navigate(projectHome);
         }
     }
 }

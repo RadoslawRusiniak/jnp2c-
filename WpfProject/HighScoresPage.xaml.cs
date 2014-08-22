@@ -85,9 +85,9 @@ namespace WpfProject
 
         private void initBestResults()
         {
-            for (int i = 1, j = 10 * SCORES_TO_SHOW; i <= SCORES_TO_SHOW; ++i, j -= 10)
+            for (int i = 0, j = 10 * SCORES_TO_SHOW; i < SCORES_TO_SHOW; ++i, j -= 10)
             {
-                bestResults[i].playerNick = "User" + i;
+                bestResults[i].playerNick = "User" + Convert.ToString(i + 1);
                 bestResults[i].score = j;
             }
         }
@@ -97,7 +97,7 @@ namespace WpfProject
             using (StreamWriter outfile = new StreamWriter(HIGHSCORES_FILE_NAME))
             {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0, j = 10 * SCORES_TO_SHOW; i < SCORES_TO_SHOW; ++i, j -= 10)
+                for (int i = 0; i < SCORES_TO_SHOW; ++i)
                 {
                     sb.AppendLine(String.Format("{0}{1}{2}", bestResults[i].playerNick, SPECIAL_CHAR, bestResults[i].score));
                 }
@@ -134,7 +134,7 @@ namespace WpfProject
             this.ScoresGrid.ColumnDefinitions.Clear();
             this.ScoresGrid.RowDefinitions.Clear();
 
-            for (int i = 1; i <= 2; ++i)
+            for (int i = 1; i <= 3; ++i)
             {
                 this.ScoresGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
@@ -151,11 +151,27 @@ namespace WpfProject
                 Grid.SetRow(nameLabel, i);
                 Grid.SetRow(dataLabel, i);
                 Grid.SetColumn(nameLabel, 0);
-                Grid.SetColumn(dataLabel, 1);
+                Grid.SetColumn(dataLabel, 2);
 
                 this.ScoresGrid.Children.Add(nameLabel);
                 this.ScoresGrid.Children.Add(dataLabel);
             }
+
+            //this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            //Button btn = new Button();
+            //btn.Content = "Back to main page";
+            //btn.Click += toMainClick();
+
+            //Grid.SetRow(btn, SCORES_TO_SHOW);
+            //Grid.SetColumn(btn, 1);
+            //this.ScoresGrid.Children.Add(btn);
         }
+        /*
+        private RoutedEventHandler toMainClick()
+        {
+            ProjectHome projectHome = new ProjectHome();
+            this.NavigationService.Navigate(projectHome);
+        }
+         */
     }
 }

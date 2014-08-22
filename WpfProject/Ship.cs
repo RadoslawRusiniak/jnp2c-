@@ -13,11 +13,12 @@ namespace WpfProject
     [Serializable()]
     public class Ship
     {
-        public Ellipse shipShape {get; set;}
-        //private int armour;
+        //public Ellipse shipShape {get; set;}
+        public int armour { get; set; }
 
         public Ship()
         {
+            armour = 1;
         }
     }
 }

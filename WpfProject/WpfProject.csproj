@@ -55,6 +55,7 @@
     </ApplicationDefinition>
     <Compile Include="CanvasFlyingObject.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="XMLIgnore.cs" />
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
