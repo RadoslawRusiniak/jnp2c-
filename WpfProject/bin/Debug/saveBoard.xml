@@ -2,22 +2,28 @@
 <GameBoard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <heroShip>
     <position>
-      <X>150</X>
-      <Y>360</Y>
+      <X>80</X>
+      <Y>400</Y>
     </position>
   </heroShip>
   <heroBullets />
   <enemies>
     <CanvasFlyingObject>
       <position>
-        <X>223</X>
-        <Y>113</Y>
+        <X>151</X>
+        <Y>63</Y>
       </position>
     </CanvasFlyingObject>
     <CanvasFlyingObject>
       <position>
-        <X>287</X>
-        <Y>68</Y>
+        <X>194</X>
+        <Y>33</Y>
+      </position>
+    </CanvasFlyingObject>
+    <CanvasFlyingObject>
+      <position>
+        <X>89</X>
+        <Y>3</Y>
       </position>
     </CanvasFlyingObject>
   </enemies>

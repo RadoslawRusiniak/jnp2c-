@@ -50,6 +50,7 @@ namespace WpfProject
                 if (score > bestResults[i].score)
                 {
                     position_to_put = i;
+                    break;
                 }
             }
 

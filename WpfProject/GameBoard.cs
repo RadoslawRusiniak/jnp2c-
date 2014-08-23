@@ -15,22 +15,19 @@ namespace WpfProject
     [Serializable()]
     public class GameBoard
     {
+        enum BOUNDS {UP = 0, RIGHT = 300, DOWN = 420, LEFT = 0 };
+
         [XmlIgnore]
-        private Canvas canvas;
+        public Canvas canvas { get; set; }
         public CanvasFlyingObject heroShip { get; set; }
         public List<CanvasFlyingObject> heroBullets { get; set; }
         public List<CanvasFlyingObject> enemies { get; set; }
 
         public GameBoard()
         {
-        }
-
-        public GameBoard(Grid grid, Point startingPoint)
-        {
             canvas = new Canvas();
-            grid.Children.Add(canvas);
 
-            heroShip = new CanvasFlyingObject(startingPoint, Brushes.Aqua, 20, 20);
+            heroShip = new CanvasFlyingObject(new Point(150, 400), Brushes.Aqua, 20, 20);
             updateHeroShipPainting();
             heroBullets = new List<CanvasFlyingObject>();
             enemies = new List<CanvasFlyingObject>();
@@ -93,8 +90,8 @@ namespace WpfProject
 
         public bool checkCrashes()
         {
-            if ((heroShip.position.X < 0) || (heroShip.position.X > 300) ||
-                (heroShip.position.Y < 0) || (heroShip.position.Y > 420))
+            if ((heroShip.position.X < (int)BOUNDS.LEFT) || (heroShip.position.X > (int)BOUNDS.RIGHT) ||
+                (heroShip.position.Y < (int)BOUNDS.UP) || (heroShip.position.Y > (int)BOUNDS.DOWN))
             {
                 return true;
             }
@@ -162,9 +159,10 @@ namespace WpfProject
             {
                 canvas.Children.Remove(enemy.shape);
                 enemy.position = new Point(enemy.position.X, enemy.position.Y + 1);
-                if (enemy.position.Y < 400)
+                if (enemy.position.Y < (int)BOUNDS.DOWN)
                 {
                     Canvas.SetTop(enemy.shape, enemy.position.Y);
+                    Canvas.SetLeft(enemy.shape, enemy.position.X);
                     canvas.Children.Add(enemy.shape);
                 }
             }
@@ -176,9 +174,10 @@ namespace WpfProject
             {
                 canvas.Children.Remove(bullet.shape);
                 bullet.position = new Point(bullet.position.X, bullet.position.Y - 3);
-                if (bullet.position.Y > 0)
+                if (bullet.position.Y > (int)BOUNDS.UP)
                 {
                     Canvas.SetTop(bullet.shape, bullet.position.Y);
+                    Canvas.SetLeft(bullet.shape, bullet.position.X);
                     canvas.Children.Add(bullet.shape);
                 }
             }

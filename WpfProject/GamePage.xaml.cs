@@ -26,6 +26,8 @@ namespace WpfProject
     {
         [XMLIgnore]
         private Random rand;
+        [XMLIgnore]
+        private Label scoreBoard;
         public GameBoard gameBoard { get; set; }
         public Player player { get; set; }
         public int nextSavingScore = 1;
@@ -38,12 +40,28 @@ namespace WpfProject
             this.ShowsNavigationUI = false;
             rand = new Random();
             player = new Player();
-            Point heroShipStartingPoint = new Point(150, 400);
-            gameBoard = new GameBoard(LayoutRoot, heroShipStartingPoint);
-            ScoreBoard.Content = player.score;
+
+            this.playGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            scoreBoard = new Label();
+            updateScore(0);
+            this.playGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(30) });
+            this.playGrid.Children.Add(scoreBoard);
+            Grid.SetRow(scoreBoard, 0);
+            Grid.SetColumn(scoreBoard, 0);
+
+            gameBoard = new GameBoard();
+            this.playGrid.RowDefinitions.Add(new RowDefinition());
+            this.playGrid.Children.Add(gameBoard.canvas);
+            Grid.SetRow(gameBoard.canvas, 1);
+            Grid.SetColumn(gameBoard.canvas, 0);
+            //Grid.SetZIndex(gameBoard.canvas, 99);
 
             Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+        }
 
+        internal void runTimer()
+        {
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += new EventHandler(timerTick);
@@ -63,8 +81,7 @@ namespace WpfProject
             }
             gameBoard.moveFlyingObjects();
             int hits = gameBoard.checkBulletsHits();
-            player.score += hits;
-            ScoreBoard.Content = player.score;
+            updateScore(hits);
             if (gameBoard.checkCrashes())
             {
                 GameOver();
@@ -91,7 +108,6 @@ namespace WpfProject
                 "savePlayer.xml");
             writer.Serialize(file, player);
             //gameBoard.save();
-
             file.Close();
             MessageBox.Show("Game saved.");
             
@@ -109,6 +125,12 @@ namespace WpfProject
             ProjectHome projectHome = new ProjectHome();
             NavigationService ns = NavigationService.GetNavigationService(this);
             ns.Navigate(projectHome);
+        }
+
+        private void updateScore(int toAdd)
+        {
+            player.score += toAdd;
+            scoreBoard.Content = "Score: " + player.score;
         }
     }
 }
