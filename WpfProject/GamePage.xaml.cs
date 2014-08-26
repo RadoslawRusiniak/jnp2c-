@@ -25,11 +25,8 @@ namespace WpfProject
     public partial class GamePage : Page
     {
         [XMLIgnore]
-        private Random rand;
-        [XMLIgnore]
         private Label scoreBoard;
         public GameBoard gameBoard { get; set; }
-        public Player player { get; set; }
         public int nextSavingScore = 1;
         [XMLIgnore]
         private DispatcherTimer timer;
@@ -38,13 +35,11 @@ namespace WpfProject
         {
             InitializeComponent();
             this.ShowsNavigationUI = false;
-            rand = new Random();
-            player = new Player();
 
             this.playGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
             scoreBoard = new Label();
-            updateScore(0);
+            scoreBoard.Content = "Score: 0";
             this.playGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(30) });
             this.playGrid.Children.Add(scoreBoard);
             Grid.SetRow(scoreBoard, 0);
@@ -75,21 +70,19 @@ namespace WpfProject
 
         private void timerTick(object sender, EventArgs e)
         {
-            if (rand.Next(0, 1000) < 10)
-            {
-                gameBoard.generateEnemy(rand.Next(0, 300));
-            }
-            gameBoard.moveFlyingObjects();
-            int hits = gameBoard.checkBulletsHits();
-            updateScore(hits);
-            if (gameBoard.checkCrashes())
+            gameBoard.updateGame();
+            if (gameBoard.isGameOver())
             {
                 GameOver();
             }
-            else if (player.score >= nextSavingScore)
+            else 
             {
-                nextSavingScore += 100; 
-                saveGame();
+                scoreBoard.Content = "Score: " + gameBoard.player.score;
+                if (gameBoard.player.score >= nextSavingScore)
+                {
+                    nextSavingScore += 100;
+                    //saveGame();
+                }
             }
         }
 
@@ -102,11 +95,6 @@ namespace WpfProject
                 "saveBoard.xml");
             writer.Serialize(file, gameBoard);
 
-            writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(Player));
-            file = new System.IO.StreamWriter(
-                "savePlayer.xml");
-            writer.Serialize(file, player);
             //gameBoard.save();
             file.Close();
             MessageBox.Show("Game saved.");
@@ -120,17 +108,11 @@ namespace WpfProject
             MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             
             HighScoresPage highScores = new HighScoresPage();
-            highScores.updateResults("TODO Nick", player.score);
+            highScores.updateResults("TODO Nick", gameBoard.player.score);
 
             ProjectHome projectHome = new ProjectHome();
             NavigationService ns = NavigationService.GetNavigationService(this);
             ns.Navigate(projectHome);
-        }
-
-        private void updateScore(int toAdd)
-        {
-            player.score += toAdd;
-            scoreBoard.Content = "Score: " + player.score;
         }
     }
 }

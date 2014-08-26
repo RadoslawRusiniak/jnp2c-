@@ -54,21 +54,17 @@ namespace WpfProject
                 System.IO.StreamReader file = new System.IO.StreamReader(
                     SAVE_FILE_NAME);
                 gamePage.gameBoard = (GameBoard)reader.Deserialize(file);
+                /*
                 gamePage.gameBoard.heroShip.paintShape(Brushes.Aqua);
-                foreach (CanvasFlyingObject enemy in gamePage.gameBoard.enemies)
+                foreach (FlyingObject enemy in gamePage.gameBoard.enemies)
                 {
                     enemy.paintShape(Brushes.Red);
                 }
-                foreach (CanvasFlyingObject bullet in gamePage.gameBoard.heroBullets)
+                foreach (FlyingObject bullet in gamePage.gameBoard.heroBullets)
                 {
                     bullet.paintShape(Brushes.Yellow, 5, 5);
                 }
-
-                reader = new System.Xml.Serialization.XmlSerializer(typeof(Player));
-                file = new System.IO.StreamReader("savePlayer.xml");
-                gamePage.player = (Player)reader.Deserialize(file);
-
-                gamePage.nextSavingScore = gamePage.player.score + 100;
+                */
 
                 gamePage.runTimer();
                 this.NavigationService.Navigate(gamePage);

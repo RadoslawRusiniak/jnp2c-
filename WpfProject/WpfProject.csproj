@@ -53,8 +53,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CanvasFlyingObject.cs" />
-    <Compile Include="Ship.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="FlyingObject.cs" />
+    <Compile Include="HeroShip.cs" />
     <Compile Include="XMLIgnore.cs" />
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>

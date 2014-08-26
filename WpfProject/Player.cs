@@ -10,12 +10,10 @@ namespace WpfProject
     [Serializable()]
     public class Player
     {
-        public Ship ship { get; set; }
         public int score { get; set; }
 
         public Player()
         {
-            ship = new Ship();
             score = 0;
         }
     }
