@@ -19,19 +19,18 @@ namespace WpfProject
         public enum DIRECTION { UP, RIGHT, DOWN, LEFT, NONE };
 
         [XmlIgnore]
-        private Random rand;
-        [XmlIgnore]
         public Canvas board { get; set; }      
         public Player player { get; set; }
+        public Level level { get; set; }
         public HeroShip heroShip { get; set; }
         public List<Bullet> heroBullets { get; set; }
         public List<Enemy> enemies { get; set; }
 
         public Game()
         {
-            rand = new Random();
             board = new Canvas();
             player = new Player();
+            level = new Level();
 
             heroShip = new HeroShip();
             heroShip.placeOnStartingPosition();
@@ -46,9 +45,10 @@ namespace WpfProject
             checkCrashes();
             int hits = checkBulletsHits();
             player.score += hits;
-            if (rand.Next(0, 1000) < 10)
+            Enemy generatedEnemy = level.generateEnemy(board);
+            if (generatedEnemy != null)
             {
-                generateEnemy(rand.Next(0, 300));
+                enemies.Add(generatedEnemy);
             }
             foreach (Bullet bullet in heroBullets)
             {
@@ -77,18 +77,10 @@ namespace WpfProject
                     heroShip.move(board, DIRECTION.DOWN);
                     break;
                 case Key.Space:
-                    shootBullet();
+                    Bullet bullet = heroShip.shootBullet(board);
+                    heroBullets.Add(bullet);
                     break;
             }
-        }
-
-        public void shootBullet()
-        {
-            Bullet bullet = new Bullet();
-            int positionX = (int)heroShip.position.X + (20 - 10) / 2;
-            bullet.position = new Point(positionX, heroShip.position.Y - 5);
-            bullet.setOnBoard(board);
-            heroBullets.Add(bullet);
         }
 
         public void generateEnemy(int startingPositionX)
@@ -130,7 +122,10 @@ namespace WpfProject
                     if (bullet.isCollidingWith(enemy))
                     {
                         bulletsToDel.Add(bullet);
-                        enemiesToDel.Add(enemy);
+                        if (enemy.armour == 0)
+                        {
+                            enemiesToDel.Add(enemy);
+                        }
                     }
                 }
             }

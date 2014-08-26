@@ -26,5 +26,14 @@ namespace WpfProject
         {
             position = new Point(150, 400); 
         }
+
+        public Bullet shootBullet(System.Windows.Controls.Canvas board)
+        {
+            Bullet bullet = new Bullet();
+            int positionX = (int)position.X + (int)(shape.Width - bullet.shape.Width) / 2;
+            bullet.position = new Point(positionX, position.Y - 5);
+            bullet.setOnBoard(board);
+            return bullet;
+        }
     }
 }

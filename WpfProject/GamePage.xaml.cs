@@ -81,6 +81,7 @@ namespace WpfProject
                 {
                     nextSavingScore += 100;
                     saveGame();
+                    game.level.nextLevel();
                 }
             }
         }
@@ -97,14 +98,13 @@ namespace WpfProject
             }
             
             MessageBox.Show("Game saved.");
-            
         }
 
         private void GameOver()
         {
             //TODO przerobic na mutex, zeby na pewno dzialalo
             timer.Stop();
-            MessageBox.Show("Ship crashed!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
+            MessageBox.Show("Ship crashed! Game Over!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             
             HighScoresPage highScores = new HighScoresPage();
             highScores.updateResults("TODO Nick", game.player.score);

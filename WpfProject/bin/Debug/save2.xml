@@ -3,53 +3,49 @@
   <player>
     <score>1</score>
   </player>
+  <level>
+    <levelNr>1</levelNr>
+    <opponentsArmour>1</opponentsArmour>
+    <opponentsSpeed>1</opponentsSpeed>
+  </level>
   <heroShip>
     <position>
-      <X>120</X>
+      <X>280</X>
       <Y>400</Y>
     </position>
     <speed>5</speed>
-    <armour>1</armour>
+    <armour>3</armour>
   </heroShip>
-  <heroBullets>
-    <Bullet>
-      <position>
-        <X>125</X>
-        <Y>188</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-  </heroBullets>
+  <heroBullets />
   <enemies>
     <Enemy>
       <position>
-        <X>23</X>
-        <Y>507</Y>
+        <X>188</X>
+        <Y>81</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>5</X>
-        <Y>400</Y>
+        <X>64</X>
+        <Y>45</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>15</X>
-        <Y>280</Y>
+        <X>2</X>
+        <Y>30</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>5</X>
-        <Y>52</Y>
+        <X>20</X>
+        <Y>12</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
