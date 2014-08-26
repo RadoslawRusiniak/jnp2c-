@@ -21,7 +21,7 @@ namespace WpfProject
     /// </summary>
     public partial class ProjectHome : Page
     {
-        private const String SAVE_FILE_NAME = "SaveBoard.xml";
+        public const String SAVE_FILE_NAME = "save.xml";
 
         public ProjectHome()
         {
@@ -54,17 +54,12 @@ namespace WpfProject
                 System.IO.StreamReader file = new System.IO.StreamReader(
                     SAVE_FILE_NAME);
                 gamePage.game = (Game)reader.Deserialize(file);
-                /*
-                gamePage.gameBoard.heroShip.paintShape(Brushes.Aqua);
-                foreach (FlyingObject enemy in gamePage.gameBoard.enemies)
+                foreach (FlyingObject enemy in gamePage.game.enemies)
                 {
-                    enemy.paintShape(Brushes.Red);
                 }
-                foreach (FlyingObject bullet in gamePage.gameBoard.heroBullets)
+                foreach (FlyingObject bullet in gamePage.game.heroBullets)
                 {
-                    bullet.paintShape(Brushes.Yellow, 5, 5);
                 }
-                */
 
                 gamePage.runTimer();
                 this.NavigationService.Navigate(gamePage);

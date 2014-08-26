@@ -18,9 +18,9 @@ namespace WpfProject
         public enum BOUNDS { UP = 0, RIGHT = 300, DOWN = 420, LEFT = 0 };
         public enum DIRECTION { UP, RIGHT, DOWN, LEFT, NONE };
 
-        [XMLIgnore()]
+        [XmlIgnore]
         private Random rand;
-        [XmlIgnore()]
+        [XmlIgnore]
         public Canvas board { get; set; }      
         public Player player { get; set; }
         public HeroShip heroShip { get; set; }
@@ -150,18 +150,6 @@ namespace WpfProject
         public bool isGameOver()
         {
             return heroShip.armour == 0;
-        }
-
-        public void save()
-        {
-            System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(HeroShip));
-
-            System.IO.StreamWriter file = new System.IO.StreamWriter(
-                "save.xml");
-            writer.Serialize(file, heroShip);
-
-            file.Close();
         }
     }
 }

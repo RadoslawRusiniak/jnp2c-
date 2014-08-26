@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace WpfProject
 {
     [Serializable()]
     public class FlyingObject
     {
-        [XMLIgnore]
+        [XmlIgnore]
         public Shape shape { get; set; }
         public Point position { get; set; }
         public int speed { get; set; }

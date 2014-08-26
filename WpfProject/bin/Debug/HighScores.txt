@@ -6,5 +6,5 @@ User5;60
 User6;50
 User7;40
 User8;30
+TODO Nick;24
 TODO Nick;22
-User9;20

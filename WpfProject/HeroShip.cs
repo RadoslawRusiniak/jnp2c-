@@ -9,7 +9,6 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    [Serializable()]
     public class HeroShip : FlyingObject
     {
         public HeroShip()

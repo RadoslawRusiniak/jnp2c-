@@ -87,18 +87,16 @@ namespace WpfProject
         }
 
         private void saveGame()
-        {
-            game.save();
-            /*
+        {   
             System.Xml.Serialization.XmlSerializer writer =
                 new System.Xml.Serialization.XmlSerializer(typeof(Game));
 
-            System.IO.StreamWriter file = new System.IO.StreamWriter(
-                "save.xml");
-            writer.Serialize(file, game);
-
-            file.Close();
-            */
+            using (System.IO.StreamWriter file 
+                = new System.IO.StreamWriter(WpfProject.ProjectHome.SAVE_FILE_NAME))
+            {
+                writer.Serialize(file, game);
+            }
+            
             MessageBox.Show("Game saved.");
             
         }
