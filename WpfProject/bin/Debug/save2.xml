@@ -5,7 +5,7 @@
   </player>
   <heroShip>
     <position>
-      <X>240</X>
+      <X>120</X>
       <Y>400</Y>
     </position>
     <speed>5</speed>
@@ -14,16 +14,8 @@
   <heroBullets>
     <Bullet>
       <position>
-        <X>245</X>
-        <Y>242</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>245</X>
-        <Y>269</Y>
+        <X>125</X>
+        <Y>188</Y>
       </position>
       <speed>3</speed>
       <armour>1</armour>
@@ -32,24 +24,32 @@
   <enemies>
     <Enemy>
       <position>
-        <X>204</X>
-        <Y>176</Y>
+        <X>23</X>
+        <Y>507</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>242</X>
-        <Y>127</Y>
+        <X>5</X>
+        <Y>400</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>272</X>
-        <Y>60</Y>
+        <X>15</X>
+        <Y>280</Y>
+      </position>
+      <speed>1</speed>
+      <armour>1</armour>
+    </Enemy>
+    <Enemy>
+      <position>
+        <X>5</X>
+        <Y>52</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>

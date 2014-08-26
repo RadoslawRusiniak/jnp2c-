@@ -151,5 +151,18 @@ namespace WpfProject
         {
             return heroShip.armour == 0;
         }
+
+        internal void load()
+        {
+            heroShip.setOnBoard(board);
+            foreach (FlyingObject enemy in enemies)
+            {
+                enemy.setOnBoard(board);
+            }
+            foreach (FlyingObject bullet in heroBullets)
+            {
+                bullet.setOnBoard(board);
+            }
+        }
     }
 }

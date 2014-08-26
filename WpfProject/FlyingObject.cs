@@ -64,7 +64,7 @@ namespace WpfProject
         public bool isCollidingWith(FlyingObject obj)
         {
             if (Math.Pow(position.X - obj.position.X, 2) + Math.Pow(position.Y - obj.position.Y, 2) 
-                <= Math.Pow(shape.Width + obj.shape.Width, 2))
+                <= Math.Pow((shape.Width + obj.shape.Width) / 2, 2))
             {
                 armour -= 1;
                 obj.armour -= 1;

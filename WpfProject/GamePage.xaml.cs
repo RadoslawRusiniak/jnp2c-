@@ -21,14 +21,11 @@ namespace WpfProject
     /// <summary>
     /// Interaction logic for GamePage.xaml
     /// </summary>
-    [Serializable()]
     public partial class GamePage : Page
     {
-        [XMLIgnore]
         private Label scoreBoard;
         public Game game { get; set; }
-        public int nextSavingScore = 1;
-        [XMLIgnore]
+        public int nextSavingScore { get; set; }
         private DispatcherTimer timer;
 
         public GamePage()
@@ -52,6 +49,8 @@ namespace WpfProject
             Grid.SetColumn(game.board, 0);
             //Grid.SetZIndex(gameBoard.canvas, 99);
 
+            nextSavingScore = 1;
+            
             Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
         }
 
