@@ -24,34 +24,62 @@ namespace WpfProject
     public partial class GamePage : Page
     {
         private Label scoreBoard;
+        private Label armourLabel;
+        private Label levelLabel;
         public Game game { get; set; }
-        public int nextSavingScore { get; set; }
+        public int nextLevelAndSavingScore { get; set; }
         private DispatcherTimer timer;
 
         public GamePage()
         {
             InitializeComponent();
             this.ShowsNavigationUI = false;
-
-            this.playGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            
+            game = new Game();
 
             scoreBoard = new Label();
-            scoreBoard.Content = "Score: 0";
+            armourLabel = new Label();
+            levelLabel = new Label();
+
+            setGrid();
+
+            nextLevelAndSavingScore = 1;
+            
+            Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+        }
+
+        private void setGrid()
+        {
+            this.playGrid.ColumnDefinitions.Add(new ColumnDefinition());
             this.playGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(30) });
-            this.playGrid.Children.Add(scoreBoard);
+            this.playGrid.RowDefinitions.Add(new RowDefinition());
+
+            Grid infoPanel = new Grid();
+            infoPanel.RowDefinitions.Add(new RowDefinition());
+            for (int i = 0; i < 3; ++i)
+            {
+                infoPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(100) });
+            }
+            this.playGrid.Children.Add(infoPanel);
+            Grid.SetRow(infoPanel, 0);
+            Grid.SetColumn(infoPanel, 0);
+
+            infoPanel.Children.Add(scoreBoard);
             Grid.SetRow(scoreBoard, 0);
             Grid.SetColumn(scoreBoard, 0);
 
-            game = new Game();
-            this.playGrid.RowDefinitions.Add(new RowDefinition());
+            infoPanel.Children.Add(armourLabel);
+            Grid.SetRow(armourLabel, 0);
+            Grid.SetColumn(armourLabel, 1);
+
+            infoPanel.Children.Add(levelLabel);
+            Grid.SetRow(levelLabel, 0);
+            Grid.SetColumn(levelLabel, 2);
+
             this.playGrid.Children.Add(game.board);
             Grid.SetRow(game.board, 1);
             Grid.SetColumn(game.board, 0);
             //Grid.SetZIndex(gameBoard.canvas, 99);
-
-            nextSavingScore = 1;
-            
-            Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
         }
 
         internal void runTimer()
@@ -70,20 +98,27 @@ namespace WpfProject
         private void timerTick(object sender, EventArgs e)
         {
             game.updateGame();
+            updateInfoPanel();
             if (game.isGameOver())
             {
                 GameOver();
             }
             else 
             {
-                scoreBoard.Content = "Score: " + game.player.score;
-                if (game.player.score >= nextSavingScore)
+                if (game.player.score >= nextLevelAndSavingScore)
                 {
-                    nextSavingScore += 100;
+                    nextLevelAndSavingScore += 100;
                     saveGame();
                     game.level.nextLevel();
                 }
             }
+        }
+
+        private void updateInfoPanel()
+        {
+            scoreBoard.Content = "Score: " + game.player.score;
+            armourLabel.Content = "Armour: " + game.heroShip.armour;
+            levelLabel.Content = "Level: " + game.level.levelNr;
         }
 
         private void saveGame()

@@ -10,7 +10,7 @@
   </level>
   <heroShip>
     <position>
-      <X>280</X>
+      <X>20</X>
       <Y>400</Y>
     </position>
     <speed>5</speed>
@@ -20,32 +20,16 @@
   <enemies>
     <Enemy>
       <position>
-        <X>188</X>
-        <Y>81</Y>
+        <X>148</X>
+        <Y>97</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>64</X>
-        <Y>45</Y>
-      </position>
-      <speed>1</speed>
-      <armour>1</armour>
-    </Enemy>
-    <Enemy>
-      <position>
-        <X>2</X>
+        <X>72</X>
         <Y>30</Y>
-      </position>
-      <speed>1</speed>
-      <armour>1</armour>
-    </Enemy>
-    <Enemy>
-      <position>
-        <X>20</X>
-        <Y>12</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>

@@ -58,8 +58,6 @@
     <Compile Include="FlyingObject.cs" />
     <Compile Include="HeroShip.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="SolidBrush.cs" />
-    <Compile Include="XMLIgnore.cs" />
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

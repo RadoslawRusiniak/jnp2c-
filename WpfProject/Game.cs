@@ -102,7 +102,7 @@ namespace WpfProject
 
             foreach (Enemy enemy in enemies)
             {
-                if (heroShip.isCollidingWith(enemy))
+                if (heroShip.checkCollision(enemy))
                 {
                     enemy.removeFromBoard(board);
                     enemies.Remove(enemy);
@@ -119,7 +119,7 @@ namespace WpfProject
             {
                 foreach (Enemy enemy in enemies)
                 {
-                    if (bullet.isCollidingWith(enemy))
+                    if (bullet.checkCollision(enemy))
                     {
                         bulletsToDel.Add(bullet);
                         if (enemy.armour == 0)
