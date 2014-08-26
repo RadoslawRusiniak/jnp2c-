@@ -19,6 +19,7 @@ namespace WpfProject
             shape.Fill = Brushes.Aqua;
 
             speed = 5;
+            armour = 3;
         }
 
         public void placeOnStartingPosition()

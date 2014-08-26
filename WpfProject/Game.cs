@@ -99,24 +99,24 @@ namespace WpfProject
             enemies.Add(enemy);
         }
 
-        public bool checkCrashes()
+        public void checkCrashes()
         {
             if ((heroShip.position.X < (int)BOUNDS.LEFT) || (heroShip.position.X > (int)BOUNDS.RIGHT) ||
                 (heroShip.position.Y < (int)BOUNDS.UP) || (heroShip.position.Y > (int)BOUNDS.DOWN))
             {
                 heroShip.armour -= 1;
                 heroShip.placeOnStartingPosition();
-                return true;
             }
 
             foreach (Enemy enemy in enemies)
             {
                 if (heroShip.isCollidingWith(enemy))
                 {
-                    return true;
+                    enemy.removeFromBoard(board);
+                    enemies.Remove(enemy);
+                    return;
                 }
             }
-            return false;
         }
 
         public int checkBulletsHits()
@@ -149,7 +149,7 @@ namespace WpfProject
 
         public bool isGameOver()
         {
-            return heroShip.armour == 0;
+            return heroShip.armour <= 0;
         }
 
         internal void load()
