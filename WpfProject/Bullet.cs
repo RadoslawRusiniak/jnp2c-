@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
+    [Serializable()]
     public class Bullet : FlyingObject
     {
         public Bullet()

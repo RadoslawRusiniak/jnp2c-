@@ -50,10 +50,10 @@ namespace WpfProject
                 GamePage gamePage = new GamePage();
 
                 System.Xml.Serialization.XmlSerializer reader =
-                    new System.Xml.Serialization.XmlSerializer(typeof(GameBoard));
+                    new System.Xml.Serialization.XmlSerializer(typeof(Game));
                 System.IO.StreamReader file = new System.IO.StreamReader(
                     SAVE_FILE_NAME);
-                gamePage.gameBoard = (GameBoard)reader.Deserialize(file);
+                gamePage.game = (Game)reader.Deserialize(file);
                 /*
                 gamePage.gameBoard.heroShip.paintShape(Brushes.Aqua);
                 foreach (FlyingObject enemy in gamePage.gameBoard.enemies)

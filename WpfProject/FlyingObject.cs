@@ -39,21 +39,21 @@ namespace WpfProject
             }
         }
 
-        public void move(Canvas canvas, WpfProject.GameBoard.DIRECTION direction)
+        public void move(Canvas canvas, WpfProject.Game.DIRECTION direction)
         {
             removeFromBoard(canvas);
             switch (direction)
             {
-                case GameBoard.DIRECTION.UP:
+                case Game.DIRECTION.UP:
                     position = new Point(position.X, position.Y - speed);
                     break;
-                case GameBoard.DIRECTION.RIGHT:
+                case Game.DIRECTION.RIGHT:
                     position = new Point(position.X + speed, position.Y);
                     break;
-                case GameBoard.DIRECTION.DOWN:
+                case Game.DIRECTION.DOWN:
                     position = new Point(position.X, position.Y + speed);
                     break;
-                case GameBoard.DIRECTION.LEFT:
+                case Game.DIRECTION.LEFT:
                     position = new Point(position.X - speed, position.Y);
                     break;
             }
