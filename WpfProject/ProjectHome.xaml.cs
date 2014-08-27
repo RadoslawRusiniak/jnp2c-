@@ -58,7 +58,7 @@ namespace WpfProject
                     gamePage.game.load();
                 }
 
-                gamePage.nextLevelAndSavingScore += 100;
+                gamePage.nextCheckpointScore += 100;
 
                 gamePage.runTimer();
                 this.NavigationService.Navigate(gamePage);

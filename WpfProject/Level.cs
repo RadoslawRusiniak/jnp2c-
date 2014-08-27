@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace WpfProject
 {
@@ -13,28 +14,32 @@ namespace WpfProject
     public class Level
     {
         public int levelNr { get; set; }
+        public int nextLevelPoints { get; set; }
         public int opponentsArmour { get; set; }
         public int opponentsSpeed { get; set; }
+        [XmlIgnore]
         private Random rand;
         public Level()
         {
             levelNr = 1;
             rand = new Random();
-            setLevelDifficulty();
+            setLevelDetails();
         }
 
         public Level(int level)
         {
             levelNr = level;
-            setLevelDifficulty();
+            setLevelDetails();
         }
 
-        public void nextLevel()
+        internal void updateLevel(int score)
         {
-            levelNr += 1;
-            setLevelDifficulty();
+            if (score >= nextLevelPoints)
+            {
+                nextLevel();
+            }
         }
-
+        
         public Enemy generateEnemy(Canvas board)
         {
             int startingPositionX = rand.Next((int)WpfProject.Game.BOUNDS.LEFT, (int)WpfProject.Game.BOUNDS.RIGHT);
@@ -50,12 +55,18 @@ namespace WpfProject
             }
             return null;
         }
-
-        private void setLevelDifficulty()
+        
+        private void nextLevel()
         {
-            opponentsArmour = levelNr;
-            opponentsSpeed = levelNr / 10 + 1;
+            levelNr += 1;
+            setLevelDetails();
         }
 
+        private void setLevelDetails()
+        {
+            nextLevelPoints = levelNr * 10;
+            opponentsArmour = levelNr;
+            opponentsSpeed = levelNr/10 + 1;
+        }
     }
 }

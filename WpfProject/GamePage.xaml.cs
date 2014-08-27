@@ -27,7 +27,7 @@ namespace WpfProject
         private Label armourLabel;
         private Label levelLabel;
         public Game game { get; set; }
-        public int nextLevelAndSavingScore { get; set; }
+        public int nextCheckpointScore { get; set; }
         private DispatcherTimer timer;
 
         public GamePage()
@@ -43,7 +43,7 @@ namespace WpfProject
 
             setGrid();
 
-            nextLevelAndSavingScore = 1;
+            nextCheckpointScore = 1;
             
             Application.Current.MainWindow.KeyDown += new KeyEventHandler(OnButtonKeyDown);
         }
@@ -105,11 +105,10 @@ namespace WpfProject
             }
             else 
             {
-                if (game.player.score >= nextLevelAndSavingScore)
+                if (game.player.score >= nextCheckpointScore)
                 {
-                    nextLevelAndSavingScore += 100;
+                    nextCheckpointScore += 100;
                     saveGame();
-                    game.level.nextLevel();
                 }
             }
         }

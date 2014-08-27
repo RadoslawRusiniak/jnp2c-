@@ -45,6 +45,7 @@ namespace WpfProject
             checkCrashes();
             int hits = checkBulletsHits();
             player.score += hits;
+            level.updateLevel(player.score);
             Enemy generatedEnemy = level.generateEnemy(board);
             if (generatedEnemy != null)
             {
