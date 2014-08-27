@@ -15,11 +15,7 @@ namespace WpfProject
     {
         public Bullet()
         {
-            shape = new Ellipse();
-            shape.Width = 10;
-            shape.Height = 10;
-            shape.Fill = Brushes.Yellow;
-
+            setShape(10, Brushes.Yellow);
             speed = 3;
         }
     }

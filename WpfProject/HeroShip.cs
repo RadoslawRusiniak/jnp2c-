@@ -13,11 +13,7 @@ namespace WpfProject
     {
         public HeroShip()
         {
-            shape = new Ellipse();
-            shape.Width = 20;
-            shape.Height = 20;
-            shape.Fill = Brushes.Aqua;
-
+            setShape(20, Brushes.Aqua);
             speed = 5;
             armour = 3;
         }

@@ -15,11 +15,7 @@ namespace WpfProject
     {
         public Enemy()
         {
-            shape = new Ellipse();
-            shape.Width = 20;
-            shape.Height = 20;
-            shape.Fill = Brushes.Red;
-
+            setShape(20, Brushes.Red);
             speed = 1;
         }
     }

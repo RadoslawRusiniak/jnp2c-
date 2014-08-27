@@ -150,13 +150,16 @@ namespace WpfProject
 
         internal void load()
         {
+            heroShip.setShape(20, System.Windows.Media.Brushes.Aqua);
             heroShip.setOnBoard(board);
             foreach (FlyingObject enemy in enemies)
             {
+                enemy.setShape(20, System.Windows.Media.Brushes.Red);
                 enemy.setOnBoard(board);
             }
             foreach (FlyingObject bullet in heroBullets)
             {
+                bullet.setShape(10, System.Windows.Media.Brushes.Yellow);
                 bullet.setOnBoard(board);
             }
         }

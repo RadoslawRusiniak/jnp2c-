@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
@@ -23,6 +24,14 @@ namespace WpfProject
         {
             speed = 1;
             armour = 1;
+        }
+
+        public void setShape(int widthHeight, SolidColorBrush color)
+        {
+            shape = new Ellipse();
+            shape.Width = widthHeight;
+            shape.Height = widthHeight;
+            shape.Fill = color;
         }
 
         public void setOnBoard(Canvas canvas)
