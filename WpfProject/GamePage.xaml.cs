@@ -34,7 +34,6 @@ namespace WpfProject
         {
             InitializeComponent();
             this.ShowsNavigationUI = false;
-            
             game = new Game();
 
             scoreBoard = new Label();
@@ -146,6 +145,22 @@ namespace WpfProject
             ProjectHome projectHome = new ProjectHome();
             NavigationService ns = NavigationService.GetNavigationService(this);
             ns.Navigate(projectHome);
+        }
+
+        internal void LoadGame()
+        {
+            System.Xml.Serialization.XmlSerializer reader =
+                new System.Xml.Serialization.XmlSerializer(typeof(Game));
+            using (System.IO.StreamReader file = new System.IO.StreamReader(
+                WpfProject.ProjectHome.SAVE_FILE_NAME))
+            {
+                game = (Game)reader.Deserialize(file);
+                game.load();
+            }
+
+            nextCheckpointScore += 100;
+
+            runTimer();
         }
     }
 }

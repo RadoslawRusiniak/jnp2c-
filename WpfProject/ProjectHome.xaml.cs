@@ -43,25 +43,13 @@ namespace WpfProject
             this.NavigationService.Navigate(highScoresPage);
         }
 
-        private void ContinueGame(object sender, RoutedEventArgs e)
+        private void ContinueGameClick(object sender, RoutedEventArgs e)
         {
             if (File.Exists(SAVE_FILE_NAME))
             {
                 GamePage gamePage = new GamePage();
-
-                System.Xml.Serialization.XmlSerializer reader =
-                    new System.Xml.Serialization.XmlSerializer(typeof(Game));
-                using (System.IO.StreamReader file = new System.IO.StreamReader(
-                    SAVE_FILE_NAME))
-                {
-                    gamePage.game = (Game)reader.Deserialize(file);
-                    gamePage.game.load();
-                }
-
-                gamePage.nextCheckpointScore += 100;
-
-                gamePage.runTimer();
                 this.NavigationService.Navigate(gamePage);
+                gamePage.LoadGame();
             }
             else
             {
