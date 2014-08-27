@@ -158,21 +158,21 @@ namespace WpfProject
                 this.ScoresGrid.Children.Add(dataLabel);
             }
 
-            //this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            //Button btn = new Button();
-            //btn.Content = "Back to main page";
-            //btn.Click += toMainClick();
+            this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            Button btn = new Button();
+            btn.Content = "Back to main page";
+            btn.Click += toMainClick;
 
-            //Grid.SetRow(btn, SCORES_TO_SHOW);
-            //Grid.SetColumn(btn, 1);
-            //this.ScoresGrid.Children.Add(btn);
+            Grid.SetRow(btn, SCORES_TO_SHOW);
+            Grid.SetColumn(btn, 1);
+            this.ScoresGrid.Children.Add(btn);
         }
-        /*
-        private RoutedEventHandler toMainClick()
+
+        private void toMainClick(object sender, RoutedEventArgs e)
         {
             ProjectHome projectHome = new ProjectHome();
             this.NavigationService.Navigate(projectHome);
         }
-         */
+        
     }
 }

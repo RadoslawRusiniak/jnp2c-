@@ -27,7 +27,7 @@ namespace WpfProject
         {
             InitializeComponent();
             //this.NavigationService.RemoveBackEntry();
-            this.ShowsNavigationUI = true;
+            this.ShowsNavigationUI = false;
         }
 
         private void PlayClick(object sender, RoutedEventArgs e)
