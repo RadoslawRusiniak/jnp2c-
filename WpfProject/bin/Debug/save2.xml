@@ -11,43 +11,42 @@
   </level>
   <heroShip>
     <position>
-      <X>255</X>
+      <X>215</X>
       <Y>400</Y>
     </position>
     <speed>5</speed>
     <armour>3</armour>
   </heroShip>
-  <heroBullets>
-    <Bullet>
-      <position>
-        <X>270</X>
-        <Y>134</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>265</X>
-        <Y>233</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>260</X>
-        <Y>317</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-  </heroBullets>
+  <heroBullets />
   <enemies>
     <Enemy>
       <position>
-        <X>0</X>
-        <Y>48</Y>
+        <X>209</X>
+        <Y>115</Y>
+      </position>
+      <speed>1</speed>
+      <armour>1</armour>
+    </Enemy>
+    <Enemy>
+      <position>
+        <X>215</X>
+        <Y>64</Y>
+      </position>
+      <speed>1</speed>
+      <armour>1</armour>
+    </Enemy>
+    <Enemy>
+      <position>
+        <X>299</X>
+        <Y>21</Y>
+      </position>
+      <speed>1</speed>
+      <armour>1</armour>
+    </Enemy>
+    <Enemy>
+      <position>
+        <X>218</X>
+        <Y>8</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>

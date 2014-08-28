@@ -172,13 +172,13 @@ namespace WpfProject
             Button btn = new Button();
             btn.Width = 120;
             btn.Content = "Back to main page";
-            btn.Click += toMainClick;
+            btn.Click += toMain_Click;
 
             this.ScoresGrid.Children.Add(btn);
             Grid.SetRow(btn, 2);
         }
 
-        private void toMainClick(object sender, RoutedEventArgs e)
+        private void toMain_Click(object sender, RoutedEventArgs e)
         {
             ProjectHome projectHome = new ProjectHome();
             this.NavigationService.Navigate(projectHome);

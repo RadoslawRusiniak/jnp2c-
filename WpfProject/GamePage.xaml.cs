@@ -136,10 +136,17 @@ namespace WpfProject
         private void GameOver()
         {
             timer.Stop();
+
             MessageBox.Show("Ship crashed! Game Over!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
-            
+            String nick = "Noname";
+            InputDialog dialog = new InputDialog("Enter your name: ", nick);
+            if (dialog.ShowDialog() == true)
+            {
+                nick = dialog.Answer;
+            }
+
             HighScoresPage highScores = new HighScoresPage();
-            highScores.updateResults("TODO Nick", game.player.score);
+            highScores.updateResults(nick, game.player.score);
 
             ProjectHome projectHome = new ProjectHome();
             NavigationService ns = NavigationService.GetNavigationService(this);

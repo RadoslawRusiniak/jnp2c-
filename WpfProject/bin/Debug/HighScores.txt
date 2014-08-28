@@ -6,5 +6,5 @@ User5;60
 User6;50
 User7;40
 TODO Nick;35
-User8;30
+Radek;33
 User8;30
