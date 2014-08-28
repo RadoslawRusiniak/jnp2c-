@@ -160,8 +160,12 @@ namespace WpfProject
             using (System.IO.StreamReader file = new System.IO.StreamReader(
                 WpfProject.ProjectHome.SAVE_FILE_NAME))
             {
+                this.playGrid.Children.Remove(game.board);
                 game = (Game)reader.Deserialize(file);
                 game.load();
+                this.playGrid.Children.Add(game.board);
+                Grid.SetRow(game.board, 1);
+                Grid.SetColumn(game.board, 0);
             }
 
             nextCheckpointScore += 100;
