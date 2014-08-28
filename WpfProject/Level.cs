@@ -40,7 +40,7 @@ namespace WpfProject
             }
         }
         
-        public Enemy generateEnemy(Canvas board)
+        internal Enemy generateEnemy(Canvas board)
         {
             int startingPositionX = rand.Next((int)WpfProject.Game.BOUNDS.LEFT, (int)WpfProject.Game.BOUNDS.RIGHT);
             if (rand.Next(0, 1000) < 10 + levelNr)

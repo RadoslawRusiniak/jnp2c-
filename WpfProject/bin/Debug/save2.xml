@@ -11,42 +11,91 @@
   </level>
   <heroShip>
     <position>
-      <X>215</X>
+      <X>270</X>
       <Y>400</Y>
     </position>
     <speed>5</speed>
     <armour>3</armour>
   </heroShip>
-  <heroBullets />
+  <heroBullets>
+    <Bullet>
+      <position>
+        <X>150</X>
+        <Y>-292</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>150</X>
+        <Y>-256</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>150</X>
+        <Y>-217</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>155</X>
+        <Y>-133</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>280</X>
+        <Y>254</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>275</X>
+        <Y>290</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+    <Bullet>
+      <position>
+        <X>275</X>
+        <Y>332</Y>
+      </position>
+      <speed>3</speed>
+      <armour>1</armour>
+    </Bullet>
+  </heroBullets>
   <enemies>
     <Enemy>
       <position>
-        <X>209</X>
-        <Y>115</Y>
+        <X>266</X>
+        <Y>236</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>215</X>
-        <Y>64</Y>
+        <X>26</X>
+        <Y>97</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>
     </Enemy>
     <Enemy>
       <position>
-        <X>299</X>
-        <Y>21</Y>
-      </position>
-      <speed>1</speed>
-      <armour>1</armour>
-    </Enemy>
-    <Enemy>
-      <position>
-        <X>218</X>
-        <Y>8</Y>
+        <X>73</X>
+        <Y>52</Y>
       </position>
       <speed>1</speed>
       <armour>1</armour>

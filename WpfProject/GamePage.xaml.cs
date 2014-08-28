@@ -37,8 +37,11 @@ namespace WpfProject
             game = new Game();
 
             scoreBoard = new Label();
+            scoreBoard.HorizontalAlignment = HorizontalAlignment.Center;
             armourLabel = new Label();
+            armourLabel.HorizontalAlignment = HorizontalAlignment.Center;
             levelLabel = new Label();
+            levelLabel.HorizontalAlignment = HorizontalAlignment.Center;
 
             setGrid();
 
@@ -139,11 +142,16 @@ namespace WpfProject
 
             MessageBox.Show("Ship crashed! Game Over!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             String nick = "Noname";
-            InputDialog dialog = new InputDialog("Enter your name: ", nick);
-            if (dialog.ShowDialog() == true)
-            {
-                nick = dialog.Answer;
-            }
+            bool correctInput = false;
+            do {
+                InputDialog dialog = new InputDialog(
+                    String.Format("Enter your name (it cannot contain \"{0}\"): ", WpfProject.HighScoresPage.SPECIAL_CHAR), nick);
+                if (dialog.ShowDialog() == true && !dialog.Answer.Contains(WpfProject.HighScoresPage.SPECIAL_CHAR))
+                {
+                    nick = dialog.Answer;
+                    correctInput = true;
+                }
+            } while (!correctInput);
 
             HighScoresPage highScores = new HighScoresPage();
             highScores.updateResults(nick, game.player.score);
@@ -160,10 +168,14 @@ namespace WpfProject
             using (System.IO.StreamReader file = new System.IO.StreamReader(
                 WpfProject.ProjectHome.SAVE_FILE_NAME))
             {
+                this.playGrid.Children.Remove(game.board);
                 game = (Game)reader.Deserialize(file);
-                game.load();
+                game.board = new Canvas();
+                game.load(); 
+                this.playGrid.Children.Add(game.board);
+                Grid.SetRow(game.board, 1);
+                Grid.SetColumn(game.board, 0);
             }
-
             nextCheckpointScore += 100;
 
             runTimer();

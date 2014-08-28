@@ -61,7 +61,7 @@ namespace WpfProject
             }
         }
 
-        public void OnButtonKeyDown(object sender, KeyEventArgs e)
+        internal void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
@@ -84,15 +84,7 @@ namespace WpfProject
             }
         }
 
-        public void generateEnemy(int startingPositionX)
-        {
-            Enemy enemy = new Enemy();
-            enemy.position = new Point(startingPositionX, 0);
-            enemy.setOnBoard(board);
-            enemies.Add(enemy);
-        }
-
-        public void checkCrashes()
+        private void checkCrashes()
         {
             if ((heroShip.position.X < (int)BOUNDS.LEFT) || (heroShip.position.X > (int)BOUNDS.RIGHT) ||
                 (heroShip.position.Y < (int)BOUNDS.UP) || (heroShip.position.Y > (int)BOUNDS.DOWN))
@@ -112,7 +104,7 @@ namespace WpfProject
             }
         }
 
-        public int checkBulletsHits()
+        private int checkBulletsHits()
         {
             List<Bullet> bulletsToDel = new List<Bullet>();
             List<Enemy> enemiesToDel = new List<Enemy>();
@@ -143,25 +135,14 @@ namespace WpfProject
             return enemiesToDel.Count;
         }
 
-        public bool isGameOver()
+        internal bool isGameOver()
         {
             return heroShip.armour <= 0;
         }
 
         internal void load()
         {
-            heroShip.setShape(20, System.Windows.Media.Brushes.Aqua);
             heroShip.setOnBoard(board);
-            foreach (FlyingObject enemy in enemies)
-            {
-                enemy.setShape(20, System.Windows.Media.Brushes.Red);
-                enemy.setOnBoard(board);
-            }
-            foreach (FlyingObject bullet in heroBullets)
-            {
-                bullet.setShape(10, System.Windows.Media.Brushes.Yellow);
-                bullet.setOnBoard(board);
-            }
         }
     }
 }

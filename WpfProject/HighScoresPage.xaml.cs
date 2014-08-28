@@ -31,7 +31,7 @@ namespace WpfProject
     {
         private const string HIGHSCORES_FILE_NAME = "HighScores.txt";
         private const int SCORES_TO_SHOW = 10;
-        private char SPECIAL_CHAR = ';';
+        public const char SPECIAL_CHAR = ';';
 
         private Result[] bestResults = new Result[SCORES_TO_SHOW + 5];
 
