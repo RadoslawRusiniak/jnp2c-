@@ -26,7 +26,6 @@ namespace WpfProject
         public ProjectHome()
         {
             InitializeComponent();
-            //this.NavigationService.RemoveBackEntry();
             this.ShowsNavigationUI = false;
         }
 

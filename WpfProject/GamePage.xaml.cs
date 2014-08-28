@@ -135,7 +135,6 @@ namespace WpfProject
 
         private void GameOver()
         {
-            //TODO przerobic na mutex, zeby na pewno dzialalo
             timer.Stop();
             MessageBox.Show("Ship crashed! Game Over!", "", MessageBoxButton.OK, MessageBoxImage.Hand);
             

@@ -135,14 +135,22 @@ namespace WpfProject
             this.ScoresGrid.ColumnDefinitions.Clear();
             this.ScoresGrid.RowDefinitions.Clear();
 
-            for (int i = 1; i <= 3; ++i)
-            {
-                this.ScoresGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            }
+            this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            Label highScores = new Label();
+            highScores.Content = "Highest scores"; 
+            highScores.HorizontalAlignment = HorizontalAlignment.Center;
+            this.ScoresGrid.Children.Add(highScores);
+            Grid.SetRow(highScores, 0);
 
+            this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            Grid resultsGrid = new Grid();
+            for (int i = 0; i <= 1; ++i)
+            {
+                resultsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
             for (int i = 0; i < SCORES_TO_SHOW; ++i)
             {
-                this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                resultsGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
                 Label nameLabel = new Label(); nameLabel.Content = bestResults[i].playerNick;
                 Label dataLabel = new Label(); dataLabel.Content = bestResults[i].score.ToString();
@@ -152,20 +160,22 @@ namespace WpfProject
                 Grid.SetRow(nameLabel, i);
                 Grid.SetRow(dataLabel, i);
                 Grid.SetColumn(nameLabel, 0);
-                Grid.SetColumn(dataLabel, 2);
+                Grid.SetColumn(dataLabel, 1);
 
-                this.ScoresGrid.Children.Add(nameLabel);
-                this.ScoresGrid.Children.Add(dataLabel);
+                resultsGrid.Children.Add(nameLabel);
+                resultsGrid.Children.Add(dataLabel);
             }
-
-            this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            this.ScoresGrid.Children.Add(resultsGrid);
+            Grid.SetRow(resultsGrid, 1);
+            
+            this.ScoresGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(30) });
             Button btn = new Button();
+            btn.Width = 120;
             btn.Content = "Back to main page";
             btn.Click += toMainClick;
 
-            Grid.SetRow(btn, SCORES_TO_SHOW);
-            Grid.SetColumn(btn, 1);
             this.ScoresGrid.Children.Add(btn);
+            Grid.SetRow(btn, 2);
         }
 
         private void toMainClick(object sender, RoutedEventArgs e)
