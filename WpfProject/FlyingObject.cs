@@ -18,12 +18,12 @@ namespace WpfProject
         public Shape shape { get; set; }
         public Point position { get; set; }
         public int speed { get; set; }
-        public int armour { get; set; }
+        public int armor { get; set; }
 
         public FlyingObject()
         {
             speed = 1;
-            armour = 1;
+            armor = 1;
         }
 
         public void setShape(int widthHeight, SolidColorBrush color)
@@ -34,52 +34,14 @@ namespace WpfProject
             shape.Fill = color;
         }
 
-        public void setOnBoard(Canvas canvas)
+        public void reduceArmor()
         {
-            Canvas.SetLeft(shape, position.X);
-            Canvas.SetTop(shape, position.Y);
-            canvas.Children.Add(shape);
+            armor -= 1;
         }
 
-        public void removeFromBoard(Canvas canvas)
+        internal bool isDestroyed()
         {
-            if (canvas.Children.Contains(shape))
-            {
-                canvas.Children.Remove(shape);
-            }
-        }
-
-        public void move(Canvas canvas, WpfProject.Game.DIRECTION direction)
-        {
-            removeFromBoard(canvas);
-            switch (direction)
-            {
-                case Game.DIRECTION.UP:
-                    position = new Point(position.X, position.Y - speed);
-                    break;
-                case Game.DIRECTION.RIGHT:
-                    position = new Point(position.X + speed, position.Y);
-                    break;
-                case Game.DIRECTION.DOWN:
-                    position = new Point(position.X, position.Y + speed);
-                    break;
-                case Game.DIRECTION.LEFT:
-                    position = new Point(position.X - speed, position.Y);
-                    break;
-            }
-            setOnBoard(canvas);
-        }
-
-        public bool checkCollision(FlyingObject obj)
-        {
-            if (Math.Pow(position.X - obj.position.X, 2) + Math.Pow(position.Y - obj.position.Y, 2) 
-                <= Math.Pow((shape.Width + obj.shape.Width) / 2, 2))
-            {
-                armour -= 1;
-                obj.armour -= 1;
-                return true;
-            }
-            return false;
+            return armor <= 0;
         }
     }
 }

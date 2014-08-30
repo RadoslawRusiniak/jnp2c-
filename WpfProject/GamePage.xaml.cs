@@ -78,9 +78,9 @@ namespace WpfProject
             Grid.SetRow(levelLabel, 0);
             Grid.SetColumn(levelLabel, 2);
 
-            this.playGrid.Children.Add(game.board);
-            Grid.SetRow(game.board, 1);
-            Grid.SetColumn(game.board, 0);
+            this.playGrid.Children.Add(game.board.plane);
+            Grid.SetRow(game.board.plane, 1);
+            Grid.SetColumn(game.board.plane, 0);
             //Grid.SetZIndex(gameBoard.canvas, 99);
         }
 
@@ -118,7 +118,7 @@ namespace WpfProject
         private void updateInfoPanel()
         {
             scoreBoard.Content = "Score: " + game.player.score;
-            armourLabel.Content = "Armour: " + game.heroShip.armour;
+            armourLabel.Content = "Armor: " + game.heroShip.armor;
             levelLabel.Content = "Level: " + game.level.levelNr;
         }
 
@@ -168,13 +168,13 @@ namespace WpfProject
             using (System.IO.StreamReader file = new System.IO.StreamReader(
                 WpfProject.ProjectHome.SAVE_FILE_NAME))
             {
-                this.playGrid.Children.Remove(game.board);
+                this.playGrid.Children.Remove(game.board.plane);
                 game = (Game)reader.Deserialize(file);
-                game.board = new Canvas();
+                game.board.plane = new Canvas();
                 game.load(); 
-                this.playGrid.Children.Add(game.board);
-                Grid.SetRow(game.board, 1);
-                Grid.SetColumn(game.board, 0);
+                this.playGrid.Children.Add(game.board.plane);
+                Grid.SetRow(game.board.plane, 1);
+                Grid.SetColumn(game.board.plane, 0);
             }
             nextCheckpointScore += 100;
 

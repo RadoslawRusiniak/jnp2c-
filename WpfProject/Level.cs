@@ -40,17 +40,16 @@ namespace WpfProject
             }
         }
         
-        internal Enemy generateEnemy(Canvas board)
+        internal Enemy generateEnemy()
         {
             int startingPositionX = rand.Next((int)WpfProject.Game.BOUNDS.LEFT, (int)WpfProject.Game.BOUNDS.RIGHT);
             if (rand.Next(0, 1000) < 10 + levelNr)
             {
                 Enemy enemy = new Enemy();
                 enemy.position = new Point(startingPositionX, 0);
-                enemy.armour = opponentsArmour;
+                enemy.armor = opponentsArmour;
                 enemy.speed = opponentsSpeed;
                 enemy.shape.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)(255 - ((levelNr * 50) % 255)), 0, 0));
-                enemy.setOnBoard(board);
                 return enemy;
             }
             return null;

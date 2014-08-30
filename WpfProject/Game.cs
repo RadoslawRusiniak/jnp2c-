@@ -18,8 +18,7 @@ namespace WpfProject
         public enum BOUNDS { UP = 0, RIGHT = 300, DOWN = 420, LEFT = 0 };
         public enum DIRECTION { UP, RIGHT, DOWN, LEFT, NONE };
 
-        [XmlIgnore]
-        public Canvas board { get; set; }      
+        public Board board { get; set; }
         public Player player { get; set; }
         public Level level { get; set; }
         public HeroShip heroShip { get; set; }
@@ -28,13 +27,14 @@ namespace WpfProject
 
         public Game()
         {
-            board = new Canvas();
+            //boardCanvas = new Canvas();
+            board = new Board();
             player = new Player();
             level = new Level();
 
             heroShip = new HeroShip();
             heroShip.placeOnStartingPosition();
-            heroShip.setOnBoard(board);
+            board.setOnBoard(heroShip.shape, heroShip.position);
 
             heroBullets = new List<Bullet>();
             enemies = new List<Enemy>();
@@ -46,18 +46,19 @@ namespace WpfProject
             int hits = checkBulletsHits();
             player.score += hits;
             level.updateLevel(player.score);
-            Enemy generatedEnemy = level.generateEnemy(board);
+            Enemy generatedEnemy = level.generateEnemy();
             if (generatedEnemy != null)
             {
+                board.setOnBoard(generatedEnemy.shape, generatedEnemy.position);
                 enemies.Add(generatedEnemy);
             }
             foreach (Bullet bullet in heroBullets)
             {
-                bullet.move(board, DIRECTION.UP);
+                board.move(bullet, DIRECTION.UP);
             }
             foreach (Enemy enemy in enemies)
             {
-                enemy.move(board, DIRECTION.DOWN);
+                board.move(enemy, DIRECTION.DOWN);
             }
         }
 
@@ -66,19 +67,20 @@ namespace WpfProject
             switch (e.Key)
             {
                 case Key.Left:
-                    heroShip.move(board, DIRECTION.LEFT);
+                    board.move(heroShip, DIRECTION.LEFT);
                     break;
                 case Key.Right:
-                    heroShip.move(board, DIRECTION.RIGHT);
+                    board.move(heroShip, DIRECTION.RIGHT);
                     break;
                 case Key.Up:
-                    heroShip.move(board, DIRECTION.UP);
+                    board.move(heroShip, DIRECTION.UP);
                     break;
                 case Key.Down:
-                    heroShip.move(board, DIRECTION.DOWN);
+                    board.move(heroShip, DIRECTION.DOWN);
                     break;
                 case Key.Space:
-                    Bullet bullet = heroShip.shootBullet(board);
+                    Bullet bullet = heroShip.shootBullet();
+                    board.setOnBoard(bullet.shape, bullet.position);
                     heroBullets.Add(bullet);
                     break;
             }
@@ -86,20 +88,20 @@ namespace WpfProject
 
         private void checkCrashes()
         {
-            if ((heroShip.position.X < (int)BOUNDS.LEFT) || (heroShip.position.X > (int)BOUNDS.RIGHT) ||
-                (heroShip.position.Y < (int)BOUNDS.UP) || (heroShip.position.Y > (int)BOUNDS.DOWN))
+            if (!board.isWithinBounds(heroShip.position))
             {
-                heroShip.armour -= 1;
+                heroShip.reduceArmor();
                 heroShip.placeOnStartingPosition();
+                board.setOnBoard(heroShip.shape, heroShip.position);
             }
-
             foreach (Enemy enemy in enemies)
             {
-                if (heroShip.checkCollision(enemy))
+                if (board.areColliding(heroShip.shape, heroShip.position, enemy.shape, enemy.position))
                 {
-                    enemy.removeFromBoard(board);
+                    heroShip.reduceArmor();
+                    board.removeFromBoard(enemy.shape);
                     enemies.Remove(enemy);
-                    return;
+                    break;
                 }
             }
         }
@@ -108,14 +110,21 @@ namespace WpfProject
         {
             List<Bullet> bulletsToDel = new List<Bullet>();
             List<Enemy> enemiesToDel = new List<Enemy>();
+            int hits = 0;
             foreach (Bullet bullet in heroBullets)
             {
                 foreach (Enemy enemy in enemies)
                 {
-                    if (bullet.checkCollision(enemy))
+                    if (board.areColliding(bullet.shape, bullet.position, enemy.shape, enemy.position))
                     {
-                        bulletsToDel.Add(bullet);
-                        if (enemy.armour == 0)
+                        hits += 1;
+                        bullet.reduceArmor();
+                        enemy.reduceArmor();
+                        if (bullet.isDestroyed())
+                        {
+                            bulletsToDel.Add(bullet);
+                        }
+                        if (enemy.isDestroyed())
                         {
                             enemiesToDel.Add(enemy);
                         }
@@ -124,25 +133,25 @@ namespace WpfProject
             }
             foreach (Bullet bulletToDel in bulletsToDel)
             {
-                bulletToDel.removeFromBoard(board);
+                board.removeFromBoard(bulletToDel.shape);
                 heroBullets.Remove(bulletToDel);
             }
             foreach (Enemy enemyToDel in enemiesToDel)
             {
-                enemyToDel.removeFromBoard(board);
+                board.removeFromBoard(enemyToDel.shape);
                 enemies.Remove(enemyToDel);
             }
-            return enemiesToDel.Count;
+            return hits;
         }
 
         internal bool isGameOver()
         {
-            return heroShip.armour <= 0;
+            return heroShip.isDestroyed();
         }
 
         internal void load()
         {
-            heroShip.setOnBoard(board);
+            board.setOnBoard(heroShip.shape, heroShip.position);
         }
     }
 }

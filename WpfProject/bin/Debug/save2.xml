@@ -11,94 +11,46 @@
   </level>
   <heroShip>
     <position>
-      <X>270</X>
-      <Y>400</Y>
+      <X>90</X>
+      <Y>370</Y>
     </position>
     <speed>5</speed>
-    <armour>3</armour>
+    <armor>3</armor>
   </heroShip>
   <heroBullets>
     <Bullet>
       <position>
-        <X>150</X>
-        <Y>-292</Y>
+        <X>95</X>
+        <Y>218</Y>
       </position>
       <speed>3</speed>
-      <armour>1</armour>
+      <armor>1</armor>
     </Bullet>
     <Bullet>
       <position>
-        <X>150</X>
-        <Y>-256</Y>
+        <X>95</X>
+        <Y>260</Y>
       </position>
       <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>150</X>
-        <Y>-217</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>155</X>
-        <Y>-133</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>280</X>
-        <Y>254</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>275</X>
-        <Y>290</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
-    </Bullet>
-    <Bullet>
-      <position>
-        <X>275</X>
-        <Y>332</Y>
-      </position>
-      <speed>3</speed>
-      <armour>1</armour>
+      <armor>1</armor>
     </Bullet>
   </heroBullets>
   <enemies>
     <Enemy>
       <position>
-        <X>266</X>
-        <Y>236</Y>
+        <X>216</X>
+        <Y>144</Y>
       </position>
       <speed>1</speed>
-      <armour>1</armour>
+      <armor>1</armor>
     </Enemy>
     <Enemy>
       <position>
-        <X>26</X>
-        <Y>97</Y>
+        <X>253</X>
+        <Y>90</Y>
       </position>
       <speed>1</speed>
-      <armour>1</armour>
-    </Enemy>
-    <Enemy>
-      <position>
-        <X>73</X>
-        <Y>52</Y>
-      </position>
-      <speed>1</speed>
-      <armour>1</armour>
+      <armor>1</armor>
     </Enemy>
   </enemies>
 </Game>

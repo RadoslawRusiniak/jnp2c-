@@ -15,20 +15,19 @@ namespace WpfProject
         {
             setShape(20, Brushes.Aqua);
             speed = 5;
-            armour = 3;
+            armor = 3;
         }
 
         public void placeOnStartingPosition()
         {
-            position = new Point(150, 400); 
+            position = new Point((int)WpfProject.Game.BOUNDS.RIGHT / 2, (int)WpfProject.Game.BOUNDS.DOWN - 50); 
         }
 
-        public Bullet shootBullet(System.Windows.Controls.Canvas board)
+        public Bullet shootBullet()
         {
             Bullet bullet = new Bullet();
             int positionX = (int)position.X + (int)(shape.Width - bullet.shape.Width) / 2;
             bullet.position = new Point(positionX, position.Y - 5);
-            bullet.setOnBoard(board);
             return bullet;
         }
     }
