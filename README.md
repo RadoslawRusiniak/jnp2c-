@@ -15,3 +15,7 @@ There was a possibility to just give a github link to person grading project. So
 How to run it?
 
 Don't remember. If you have Visual Studio it should guide you. If you don't, well, install Visual Studio.
+
+Why does the project have this weird name?
+
+JNP2-C# was an abbreviation for university class ("Jezyki i Narzedzia Programowania 2" in Polish - "Languages and Programming Tools 2" in English). And somehow '#' was changed into '-'.
